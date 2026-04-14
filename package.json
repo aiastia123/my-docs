@@ -14,5 +14,8 @@
   "devDependencies": {
     "@types/node": "^25.6.0",
     "vitepress": "^2.0.0-alpha.17"
+  },
+  "dependencies": {
+    "vite-plugin-vitepress-auto-sidebar": "^1.7.1"
   }
 }

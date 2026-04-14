@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import AutoSidebar from 'vite-plugin-vitepress-auto-sidebar'
 
 export default defineConfig({
   // 基本信息
@@ -15,18 +16,16 @@ export default defineConfig({
   lastUpdated: true,
   cleanUrls: true,
 
-  // 多语言支持
-  locales: {
-    root: {
-      label: '简体中文',
-      lang: 'zh-CN',
-      link: '/',
-    },
-    en: {
-      label: 'English',
-      lang: 'en-US',
-      link: '/en/',
-    },
+  // Vite 插件配置
+  vite: {
+    plugins: [
+      AutoSidebar({
+        // 自动生成侧边栏
+        collapsed: false,
+        ignoreList: ['public'],
+        titleFromFile: true, // 从 md 文件的标题读取侧边栏名称
+      }),
+    ],
   },
 
   // HTML 头部配置
@@ -41,12 +40,8 @@ export default defineConfig({
     siteTitle: 'My Docs',
     logo: '/logo.svg',
 
-    sidebar: {
-      '/guide/': sidebarGuide(),
-      '/dev/': sidebarDev(),
-      '/en/guide/': sidebarGuideEn(),
-      '/en/dev/': sidebarDevEn(),
-    },
+    // 侧边栏由 vite-plugin-vitepress-auto-sidebar 自动生成
+    // 无需手动配置 sidebar
 
     editLink: {
       pattern: 'https://github.com/aiastia123/my-docs/edit/main/docs/:path',
@@ -75,37 +70,17 @@ export default defineConfig({
     search: {
       provider: 'local',
       options: {
-        locales: {
-          root: {
-            translations: {
-              button: {
-                buttonText: '搜索文档',
-                buttonAriaLabel: '搜索文档',
-              },
-              modal: {
-                noResultsText: '无法找到相关结果',
-                resetButtonTitle: '清除查询条件',
-                footer: {
-                  selectText: '选择',
-                  navigateText: '切换',
-                },
-              },
-            },
+        translations: {
+          button: {
+            buttonText: '搜索文档',
+            buttonAriaLabel: '搜索文档',
           },
-          en: {
-            translations: {
-              button: {
-                buttonText: 'Search',
-                buttonAriaLabel: 'Search',
-              },
-              modal: {
-                noResultsText: 'No results found',
-                resetButtonTitle: 'Reset search',
-                footer: {
-                  selectText: 'Select',
-                  navigateText: 'Navigate',
-                },
-              },
+          modal: {
+            noResultsText: '无法找到相关结果',
+            resetButtonTitle: '清除查询条件',
+            footer: {
+              selectText: '选择',
+              navigateText: '切换',
             },
           },
         },
@@ -132,82 +107,6 @@ function navBar() {
           text: '贡献指南',
           link: '/guide/contributing',
         },
-      ],
-    },
-  ]
-}
-
-/* ========================================
- * 侧边栏 - 中文
- * ======================================== */
-function sidebarGuide() {
-  return [
-    {
-      text: '快速开始',
-      collapsed: false,
-      items: [
-        { text: '入门指南', link: '/guide/getting-started' },
-        { text: '配置说明', link: '/guide/configuration' },
-        { text: '部署上线', link: '/guide/deployment' },
-      ],
-    },
-    {
-      text: '进阶使用',
-      collapsed: false,
-      items: [
-        { text: 'Markdown 扩展', link: '/guide/markdown' },
-        { text: '自定义主题', link: '/guide/custom-theme' },
-        { text: '贡献指南', link: '/guide/contributing' },
-      ],
-    },
-  ]
-}
-
-function sidebarDev() {
-  return [
-    {
-      text: '开发指南',
-      items: [
-        { text: '快速开发', link: '/dev/basic' },
-        { text: '架构介绍', link: '/dev/arch' },
-      ],
-    },
-  ]
-}
-
-/* ========================================
- * 侧边栏 - 英文
- * ======================================== */
-function sidebarGuideEn() {
-  return [
-    {
-      text: 'Getting Started',
-      collapsed: false,
-      items: [
-        { text: 'Getting Started', link: '/en/guide/getting-started' },
-        { text: 'Configuration', link: '/en/guide/configuration' },
-        { text: 'Deployment', link: '/en/guide/deployment' },
-      ],
-    },
-    {
-      text: 'Advanced',
-      collapsed: false,
-      items: [
-        { text: 'Markdown Extensions', link: '/en/guide/markdown' },
-        { text: 'Custom Theme', link: '/en/guide/custom-theme' },
-        { text: 'Contributing', link: '/en/guide/contributing' },
-      ],
-    },
-  ]
-}
-
-function sidebarDevEn() {
-  return [
-    {
-      text: 'Development',
-      items: [
-        { text: 'Quick Start', link: '/en/dev/basic' },
-        { text: 'Architecture', link: '/en/dev/arch' },
       ],
     },
   ]
