@@ -3,7 +3,8 @@ name: Deploy Docs
 on:
   push:
     branches:
-      - main
+      #- main
+      - teek
 
 permissions:
   contents: write
