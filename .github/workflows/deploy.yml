@@ -3,8 +3,17 @@ name: Deploy Docs
 on:
   push:
     branches:
-      #- main
-      - teek
+      - main
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "选择要部署的分支"
+        required: true
+        default: "main"
+        type: choice
+        options:
+          - main
+          - teek
 
 permissions:
   contents: write
@@ -15,6 +24,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref_name }}
 
       - uses: actions/setup-node@v3
         with:
