@@ -4,6 +4,16 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "选择要部署的分支"
+        required: true
+        default: "main"
+        type: choice
+        options:
+          - main
+          - teek
 
 permissions:
   contents: read
@@ -19,6 +29,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref_name }}
 
       - uses: actions/setup-node@v6
         with:
