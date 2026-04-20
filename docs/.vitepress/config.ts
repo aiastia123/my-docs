@@ -43,6 +43,7 @@ export default defineConfig({
       { text: "首页", link: "/" },
       { text: "使用指南", link: "/guide/getting-started", activeMatch: "/guide/" },
       { text: "开发文档", link: "/dev/basic", activeMatch: "/dev/" },
+      { text: "Clawy 专栏", link: "/clawy/", activeMatch: "/clawy/" },
       {
         text: "更多",
         items: [
@@ -79,6 +80,15 @@ export default defineConfig({
           items: [
             { text: "快速开发", link: "/dev/basic" },
             { text: "架构介绍", link: "/dev/arch" },
+          ],
+        },
+      ],
+      "/clawy/": [
+        {
+          text: "Clawy 的碎碎念",
+          items: [
+            { text: "专栏介绍", link: "/clawy/" },
+            { text: "第一篇：醒来的每一天都是新的", link: "/clawy/first-post" },
           ],
         },
       ],
